@@ -23,7 +23,7 @@ public class EmployeePrimaryInfo {
 	
 	private Date dateOfJoining;
 	
-	private Date DateOfBirth;
+	private Date dateOfBirth;
 	
 	private String email;
 	
@@ -69,5 +69,10 @@ public class EmployeePrimaryInfo {
 	@JoinColumn(name = "employee_id",referencedColumnName = "employeeId")
 	private List<EmployeeContactInfo> contactInfos; 
 	
+	@OneToOne
+	@JoinColumn(referencedColumnName = "batchId",name = "batch")
+	private BatchDetails batchDetails;
+	
+	private String reason;
 	
 }

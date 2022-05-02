@@ -1,5 +1,7 @@
 package com.te.lms.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,12 +11,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.te.lms.dto.EmployeePrimaryInfo;
 import com.te.lms.service.EmployeePrimaryInfoService;
 
 @RestController
+@RequestMapping("/employeeRegistration")
 public class EmployeePrimaryController {
 
 	@Autowired
@@ -47,6 +51,37 @@ public class EmployeePrimaryController {
 			return new ResponseEntity<String>("Status changed",HttpStatus.OK);
 		} else {
 			return new ResponseEntity<String>("Status Not changed",HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@PutMapping("/employeeApprove/{empId}")
+	public ResponseEntity<?> employeeApprove(@PathVariable String empId,@RequestBody EmployeePrimaryInfo employeePrimaryInfo) {
+		boolean isApproved = service.employeeApprove(empId, employeePrimaryInfo);
+		if (isApproved == true) {
+			return new ResponseEntity<String>("Employee Approved",HttpStatus.OK);
+		} else {
+			return new ResponseEntity<String>("Something Went Worng",HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@PutMapping("/employeeRejected/{empId}")
+	public ResponseEntity<?> employeeReject(@PathVariable String empId,@RequestBody EmployeePrimaryInfo employeePrimaryInfo) {
+		boolean isRejected = service.employeeReject(empId, employeePrimaryInfo);
+		if (isRejected == true) {
+			return new ResponseEntity<String>("Employee Rejected",HttpStatus.OK); 
+		} else {
+			return new ResponseEntity<String>("Something Went Worng",HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	
+	@GetMapping("/employeePendingList")
+	public ResponseEntity<?> pendingEmployee() {
+		List<EmployeePrimaryInfo> pendingList = service.employeePendingList();
+		if (pendingList != null) {
+			return new ResponseEntity<List<EmployeePrimaryInfo>>(pendingList,HttpStatus.OK);
+		} else {
+			return new ResponseEntity<String>("No Pending Employee",HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 }
