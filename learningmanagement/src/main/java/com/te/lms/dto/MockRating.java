@@ -1,33 +1,38 @@
 package com.te.lms.dto;
 
-import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import lombok.Data;
 
 @Data
 @Entity
-public class MockDetails {
+public class MockRating {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int mockId;
+	private int mockRatingId;
 	
-	private int mockNo;
+	private String mockType;
+	
+	private String mockTakenBy;
 	
 	private String technology;
 	
-	private String panel;
+	private int practicalKnowledge;
 	
-	private Date dateAndTime;
+	private int theoreticalKnowledge;
+	
+	private String overallFeedback;
+	
+	private String detailedFeedback;
 	
 	@ManyToOne
-	@JoinColumn(referencedColumnName = "batchId")
-	private BatchDetails batchDetails;
+	@JoinColumn(referencedColumnName = "mockId")
+	private MockDetails mockDetails;
 }

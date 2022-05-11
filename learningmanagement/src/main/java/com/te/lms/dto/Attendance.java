@@ -1,6 +1,6 @@
 package com.te.lms.dto;
 
-import java.util.Date;
+import java.sql.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,21 +13,19 @@ import lombok.Data;
 
 @Data
 @Entity
-public class MockDetails {
-
+public class Attendance {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int mockId;
+	private int attendanceId;
 	
-	private int mockNo;
+	private Date attendanceDate;
 	
-	private String technology;
+	private boolean morningAttendance;
 	
-	private String panel;
-	
-	private Date dateAndTime;
+	private boolean noonAttendance;
 	
 	@ManyToOne
-	@JoinColumn(referencedColumnName = "batchId")
-	private BatchDetails batchDetails;
+	@JoinColumn(referencedColumnName = "employeeId")
+	private EmployeePrimaryInfo employeePrimaryInfo;
 }
