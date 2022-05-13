@@ -1,6 +1,6 @@
 package com.te.lms.dto;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,7 +19,7 @@ public class Attendance {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int attendanceId;
 	
-	private Date attendanceDate;
+	private LocalDate attendanceDate;
 	
 	private boolean morningAttendance;
 	
